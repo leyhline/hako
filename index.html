@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Form Example</title>
+    <style>
+      label, button { display: block; }
+      .input { margin-bottom: 1em; }
+      form { border: 1px solid; padding: 1em; }
+    </style>
+    <script>
+      function sortByInputValue(divElem1, divElem2) {
+        const val1 = divElem1.lastElementChild.value.toUpperCase();
+        const val2 = divElem2.lastElementChild.value.toUpperCase();
+        if (val1 === val2) {
+          return 0;
+        } else if (val1 > val2) {
+          return 1;
+        } else {
+          return -1;
+        }
+      }
+      
+      function triggerSort() {
+        const inputGroups = document.getElementsByClassName("input");
+        const inputGroupsArray = Array.from(inputGroups);
+        inputGroupsArray.sort(sortByInputValue);
+        const formFields = document.getElementById("form-fields");
+        formFields.replaceChildren(...inputGroupsArray);
+      }
+    </script>
+  </head>
+  <body>
+    <h1>a form with many text fields</h1>
+    <form>
+      <div id="form-fields">
+        <div class="input">
+          <label for="short-text-1">write something here</label>
+          <input id="short-text-1">
+        </div>
+        <div class="input">
+          <label for="short-text-2">and maybe also here</label>
+          <input id="short-text-2">
+        </div>
+        <div class="input">
+          <label for="long-text-1">some more text</label>
+          <textarea id="long-text-1"></textarea>
+        </div>
+        <div class="input">
+          <label for="short-text-3">also more text</label>
+          <input id="short-text-3">
+        </div>
+        <div class="input">
+          <label for="long-text-2">and a lot more text</label>
+          <textarea id="long-text-2"></textarea>
+        </div>
+      </div>
+      <button type="button" onclick="triggerSort()">Sort</button>
+    </form>
+    <p>Clicking "Sort" reorders the form fields alphabetically by their input. Obviously, nothing happens if the fields are empty.</p>
+    <p>This is purely in the browser. No server is involved. But it is not hard to add a server if necessary.</p>
+  </body>
+</html>
